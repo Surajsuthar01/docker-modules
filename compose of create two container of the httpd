@@ -1,0 +1,26 @@
+services:
+  httpd1:   # Service names must be unique (httpd1 instead of httpd:1)
+    image: httpd:latest
+    container_name: suraj1
+    ports:
+      - "80:80"
+    volumes:   # `volume` should be `volumes`
+      - ./site1:/usr/local/apache2/htdocs/
+    networks:
+      - httpd_network
+
+  httpd2:   # Service names must be unique (httpd2 instead of httpd:2)
+    image: httpd:latest
+    container_name: suraj2
+    ports:
+      - "81:80"
+    volumes:
+      - ./site2:/usr/local/apache2/htdocs/
+    networks:
+      - httpd_network
+
+networks:
+  httpd_network:   # Network must be defined under `networks`
+    driver: bridge
+
+~                                                                                                                                                           ~                                                                                                                                                           ~                   
