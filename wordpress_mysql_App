@@ -1,0 +1,39 @@
+services:
+   db: 
+     image: mysql:latest
+     container_name: mysql
+     environment:
+       MYSQL_ROOT_PASSWORD: ram 
+       MYSQL_USER: ram 
+       MYSQL_PASSWORD: ram 
+       MYSQL_DATABASE: wordpress
+     volumes:
+       - db_data:/var/lib/mysql
+     networks:
+       - wordpress_network
+     restart: always
+   wordpress:
+      depends_on:
+        - db
+      image: wordpress:latest
+      container_name: wordpress
+      ports:
+        - "80:80"
+      environment:
+        WORDPRESS_DB_HOST: db
+        WORDPRESS_DB_USER: ram 
+        WORDPRESS_DB_NAME: wordpress
+        WORDPRESS_DB_PASSWORD: ram 
+      volumes:
+        - wordpress_data:/var/www/html
+      restart: always
+      networks:
+        - wordpress_network    
+networks:
+   wordpress_network:
+
+ volumes:
+   db_data:
+   wordpress_data:
+
+                        
